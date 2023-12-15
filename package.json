@@ -1,7 +1,7 @@
 {
   "name": "@szegerege12/b5-result-text-pl",
   "description": "Text for big five results score",
-  "version": "5.0.10",
+  "version": "5.0.11",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
