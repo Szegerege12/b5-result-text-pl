@@ -1,41 +1,43 @@
-const getTemplate = require('./lib/get-template')
-const generateResult = require('./lib/generate-result')
-const languages = require('./lib/data/languages.json')
+const getTemplate = require("./lib/get-template");
+const generateResult = require("./lib/generate-result");
+const languages = require("./lib/data/languages.json");
 
-function languageSort (a, b) {
+function languageSort(a, b) {
   if (a.text < b.text) {
-    return -1
+    return -1;
   }
   if (a.text > b.text) {
-    return 1
+    return 1;
   }
-  return 0
+  return 0;
 }
 
-languages.sort(languageSort)
+languages.sort(languageSort);
 
-module.exports = data => {
+module.exports = (data) => {
   if (!data) {
-    throw new Error('Missing required input')
+    throw new Error("Missing required input");
   }
 
-  const template = getTemplate(data.lang || 'en')
+  const lang = data.lang;
+
+  const template = getTemplate(data.lang || "en");
 
   if (!data.scores) {
-    throw new Error('Missing required input data.scores')
+    throw new Error("Missing required input data.scores");
   }
 
   if (!template) {
-    throw new Error('Template not found. Try another data.lang input.')
+    throw new Error("Template not found. Try another data.lang input.");
   }
 
-  return generateResult(data.scores, template)
-}
+  return generateResult(data.scores, template, lang);
+};
 
-module.exports.getInfo = () => ({ languages })
+module.exports.getInfo = () => ({ languages });
 
-module.exports.getTemplate = (language = 'en') => getTemplate(language)
+module.exports.getTemplate = (language = "en") => getTemplate(language);
 
-module.exports.getDomain = require('./lib/get-domain')
+module.exports.getDomain = require("./lib/get-domain");
 
-module.exports.getFacet = require('./lib/get-facet')
+module.exports.getFacet = require("./lib/get-facet");
